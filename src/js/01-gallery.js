@@ -12,30 +12,16 @@ const cardsMarkup = createCards(galleryItems);
 function createCards(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
-      return `<div class="gallery__item">
-  <a class="gallery__link" href="${original}">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-  </a>
-</div>`;
+      return `<a class="gallery__item" href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}" />
+</a>`;
     })
     .join('');
 }
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-galleryContainer.addEventListener('click', onClick);
 
-function onClick(evn) {
-  evn.preventDefault();
-  if (evn.target.nodeName !== `IMG`) {
-    return;
-  }
-
-  const instance = SimpleLightbox.create(`
-        <img src="${evn.target.dataset.source}" width="800" height="600">
-        `);
-  instance.show();
-}
+const gallery = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
