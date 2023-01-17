@@ -22,12 +22,14 @@ function onFormSubmit(evt) {
   evt.preventDefault();
   evt.currentTarget.reset();
   localStorage.removeItem('feedback-form-state');
+  console.log(userFeedback);
 }
 
 function fillInput() {
   const savedInfo = localStorage.getItem('feedback-form-state');
   const parsedInfo = JSON.parse(savedInfo);
   if (savedInfo) {
+    console.log(parsedInfo);
     userEmail.value = parsedInfo.email;
     userMessage.value = parsedInfo.message;
   }
